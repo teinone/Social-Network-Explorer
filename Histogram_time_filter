@@ -24,3 +24,6 @@ g.posts.hist <- hist(dt.reddit.subset.filter.2015$date, breaks = "day",
                      plot = TRUE, freq = FALSE,
                      start.on.monday = TRUE, format)
 g.posts.hist
+
+
+#Hey I edited your file
