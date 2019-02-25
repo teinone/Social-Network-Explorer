@@ -1,0 +1,24 @@
+#Import libraries
+library("data.table")
+library("readr")
+library("dplyr")
+library("stringr")
+library("igraph")
+
+#================================================
+
+#Data frame for graph
+g.reddit <- graph.data.frame(dt.reddit.both[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)],
+  directed = TRUE)
+
+summary(g.reddit)
+
+
+#================================================
+
+# Plot network graph
+V(g.reddit)$title <- "Source and Traget Subbredit Network"
+V(g.reddit)$label <- "" 
+V(g.reddit)$size <- 50
+
+plot(g.reddit, vertex.size = 3, vertex.label = NA)
