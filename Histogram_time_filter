@@ -1,0 +1,26 @@
+library(data.table)     # Run once per session
+library(ggplot2)        # Run once per session
+library(stringr)
+
+# Load previously saved data.
+load("reddit_complete.RData")
+
+# add columns of "date" and "time" to the data table, splited from TIMESTAMP
+dt.reddit.subset <- 
+  dt.reddit.both.subset[, date := str_split_fixed(dt.reddit.both.subset$TIMESTAMP, " ", 2)[,1]]
+dt.reddit.subset.time <- 
+  dt.reddit.both.subset[, time := str_split_fixed(dt.reddit.both.subset$TIMESTAMP, " ", 2)[,2]]
+
+# change the characteristic of date and time
+dt.reddit.subset.time$date <- as.Date(dt.reddit.subset.time$date, format = "%Y-%m-%d")
+dt.reddit.subset.time$time <- as.Date(dt.reddit.subset.time$time, format = "%H:%M:%S")
+
+# set time filter based on the "date" column
+dt.reddit.subset.filter.2015 <- subset(dt.reddit.subset.time, date > "2014-01-01" & date < "2014-02-27")
+
+# run the histogram based on the filtered data table, and change the "time filter" in the "break" parameter
+g.posts.hist <- hist(dt.reddit.subset.filter.2015$date, breaks = "day", 
+                     xlab = deparse(substitute(dt.reddit.subset.filter.2015$date)),
+                     plot = TRUE, freq = FALSE,
+                     start.on.monday = TRUE, format)
+g.posts.hist
