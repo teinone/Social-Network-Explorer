@@ -26,4 +26,4 @@ g.posts.hist <- hist(dt.reddit.subset.filter.2015$date, breaks = "day",
 g.posts.hist
 
 
-#Hey I edited your file
+
