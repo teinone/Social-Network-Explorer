@@ -1,0 +1,19 @@
+# Load the necessary libraries
+library(data.table)     
+library(ggplot2)        
+library(stringr)
+
+# Load previously saved data.
+load("reddit_complete.RData")
+
+# Plot the histogram of posts frequency
+g.posts.hist <- hist(dt.reddit.both$TIMESTAMP, breaks = "week", 
+     xlab = deparse(substitute(dt.reddit.both$TIMESTAMP)),
+     plot = TRUE, freq = TRUE,
+     start.on.monday = TRUE, format = " %b")
+
+# Show weeks with number of posts
+tab <- table(cut(dt.reddit.both$TIMESTAMP, 'week'))
+dt.frequency <- data.frame(Date=format(as.Date(names(tab)), '%d/%m/%Y'),
+           Frequency=as.vector(tab))
+
