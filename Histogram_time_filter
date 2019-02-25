@@ -1,15 +1,16 @@
 library(data.table)     # Run once per session
 library(ggplot2)        # Run once per session
 library(stringr)
+library(igraph)
 
 # Load previously saved data.
 load("reddit_complete.RData")
 
 # add columns of "date" and "time" to the data table, splited from TIMESTAMP
 dt.reddit.subset <- 
-  dt.reddit.both.subset[, date := str_split_fixed(dt.reddit.both.subset$TIMESTAMP, " ", 2)[,1]]
+  dt.reddit.both[, date := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,1]]
 dt.reddit.subset.time <- 
-  dt.reddit.both.subset[, time := str_split_fixed(dt.reddit.both.subset$TIMESTAMP, " ", 2)[,2]]
+  dt.reddit.both[, time := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,2]]
 
 # change the characteristic of date and time
 dt.reddit.subset.time$date <- as.Date(dt.reddit.subset.time$date, format = "%Y-%m-%d")
