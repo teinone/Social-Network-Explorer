@@ -25,3 +25,22 @@ g.posts.hist <- hist(dt.reddit.subset.filter.2015$date, breaks = "day",
                      plot = TRUE, freq = FALSE,
                      start.on.monday = TRUE, format)
 g.posts.hist
+
+# Show weeks with number of posts
+tab <- table(cut(dt.reddit.filter.2015$data, 'week'))
+dt.frequency <- data.frame(Date = format(as.Date(names(tab)), '%d/%m/%Y'),
+                           Frequency = as.vector(tab))
+                           
+                           
+# Ploting network analysis--------------
+#Data frame for graph
+g.reddit <- graph.data.frame(dt.reddit.subset.filter.2015[, .(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)],
+                             directed = TRUE)
+summary(g.reddit)
+
+# Plot network graph base on the "time filter"
+V(g.reddit)$title <- "Source and Traget Subbredit Network"
+V(g.reddit)$label <- "" 
+V(g.reddit)$size <- 50
+
+plot(g.reddit, vertex.size = 3, vertex.label = NA)
