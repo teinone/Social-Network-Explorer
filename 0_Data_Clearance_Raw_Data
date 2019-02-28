@@ -1,0 +1,33 @@
+library(data.table)     # Run once per session
+library(ggplot2)        # Run once per session
+library(stringr)        # Run once per session
+library(igraph)         # Run once per session
+library(plyr)           # Run once per session
+
+# Load previously saved data.
+load("reddit_complete.RData")
+
+# extract specific properties and add columns of "Readability, Positive/Negative/Compound Sentiments"
+dt.reddit.prop18 <- dt.reddit.both[, Readability := str_split_fixed(dt.reddit.both$PROPERTIES, ",", 86)[, 18]]
+dt.reddit.prop19 <- dt.reddit.prop18[, Positive_Sentiment := str_split_fixed(dt.reddit.both$PROPERTIES, ",", 86)[, 19]]
+dt.reddit.prop20 <- dt.reddit.prop19[, Negative_Sentiment := str_split_fixed(dt.reddit.both$PROPERTIES, ",", 86)[, 20]]
+dt.reddit.prop21 <- dt.reddit.prop20[, Compound_Sentiment := str_split_fixed(dt.reddit.both$PROPERTIES, ",", 86)[, 21]]
+
+
+# add columns of "date" and "time" to the data table, splited from TIMESTAMP
+dt.reddit.subset <- 
+  dt.reddit.prop21[, date := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,1]]
+dt.reddit.subset.time <- 
+  dt.reddit.prop21[, time := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,2]]
+
+# change the characteristic of date and time
+dt.reddit.subset.time$date <- as.Date(dt.reddit.subset.time$date, format = "%Y-%m-%d")
+dt.reddit.subset.time$time <- as.Date(dt.reddit.subset.time$time, format = "%H:%M:%S")
+
+# remove the column of "PROPERTIES", which is unnecessary.
+dt.reddit.subset.time[,6] <- NULL
+dt.reddit.raw <- dt.reddit.subset.time
+
+View(dt.reddit.raw)
+
+#dt.reddit.raw will be the raw data with specific properties and date/time.
