@@ -21,4 +21,4 @@ V(g.reddit)$title <- "Source and Traget Subbredit Network"
 V(g.reddit)$label <- "" 
 V(g.reddit)$size <- 50
 
-plot(g.reddit, vertex.size = 3, vertex.label = NA)
+plot(g.reddit, vertex.size = 3, vertex.label = NA, edge.width=0.2)
