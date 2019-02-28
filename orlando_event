@@ -35,4 +35,9 @@ summary(g.reddit.orlando)
 
   plot(g.reddit.orlando, vertex.size = 3, vertex.label = NA, edge.width=0.01, edge.arrow.size=.6, edge.color="gray85")
 
+# Histogram,by day
 
+g.orlando.hist <- hist(dt.reddit.orlando$date, breaks = "day", 
+                     xlab = deparse(substitute(dt.reddit.orlando$date)),
+                     plot = TRUE, freq = FALSE, format)
+g.orlando.hist
