@@ -1,0 +1,40 @@
+#install.packages("shinydashboard")
+library(shiny)
+library(markdown)
+library(shinydashboard)
+
+sidebar <-   dashboardSidebar(
+  sidebarMenu(
+    menuItem("Dashboard", tabName = "Dashboard", icon = icon("dashboard")),
+    menuItem("Widgets", tabName = "Widgets", icon = icon("th")),
+    menuItem("Charts", icon = icon("bar-chart-o"),
+             menuSubItem("Chart sub-item 1", tabName = "subitem1"),
+             menuSubItem("Chart sub-item 2", tabName = "subitem2"))
+  )
+)
+
+body <-   dashboardBody(
+  tabItems(
+    # First tab content
+    tabItem(tabName = "Dashboard",
+            h2("Dashboard tab content"))
+  ),
+  
+  # Second tab content
+  tabItem(tabName = "Widgets",
+          h2("Widgets tab content"))
+)
+
+ui <- dashboardPage(
+  dashboardHeader(title = "mainTitle"),
+  # Call sidebar
+    sidebar,
+  # Call body 
+    body
+  )    
+
+server <- function(input, output) {
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
