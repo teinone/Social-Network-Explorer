@@ -18,21 +18,21 @@ dt.reddit.subset.time$date <- as.Date(dt.reddit.subset.time$date, format = "%Y-%
 dt.reddit.subset.time$time <- as.Date(dt.reddit.subset.time$time, format = "%H:%M:%S")
 
 # Set time filter based on the "date" column for 2 weeks around the Orlando shooting (12/06/2016)
-dt.reddit.subset.orlando <- subset(dt.reddit.subset.time, date > "2016-06-10" & date < "2014-06-21")
+dt.reddit.orlando <- subset(dt.reddit.subset.time, date > "2016-06-10" & date < "2016-06-21")
 
 # Graph data frame
-g.reddit.orlando <- graph.data.frame(dt.reddit.subset.orlando[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)],
+g.reddit.orlando <- graph.data.frame(dt.reddit.orlando[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)],
   directed = TRUE)
   
 # Get summary
 summary(g.reddit.orlando)
 
 # Graph plot
-V(g.reddit.orlando)$title <- "Orlando shooting"
-V(g.reddit.orlando)$label <- "" 
-V(g.reddit.orlando)$size <- 50
-V(g.reddit.orlando)$frame.color <- "white"
+  V(g.reddit.orlando)$title <- "Orlando shooting"
+  V(g.reddit.orlando)$label <- "" 
+  V(g.reddit.orlando)$size <- 50
+  V(g.reddit.orlando)$frame.color <- "white"
 
-plot(g.reddit.orlando, vertex.size = 3, vertex.label = NA, edge.width=0.01, edge.arrow.size=.6, edge.color="gray85")
+  plot(g.reddit.orlando, vertex.size = 3, vertex.label = NA, edge.width=0.01, edge.arrow.size=.6, edge.color="gray85")
 
 
