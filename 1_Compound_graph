@@ -7,7 +7,7 @@ ggplot(dt.reddit.orlando, aes(x = TIMESTAMP, y = Negative_Sentiment)) +
 
 # Positive/ Negative Sentiment trend line
 p <- ggplot(dt.reddit.orlando, aes(x = TIMESTAMP))
-p <- p +  geom_point() + geom_smooth(aes(y = Positive_Sentiment, colour = "Positive"), se = FALSE)
+p <- p + geom_smooth(aes(y = Positive_Sentiment, colour = "Positive"), se = FALSE)
 
 # adding the relative humidity data, transformed to match roughly the range of the temperature
 p <- p + geom_smooth(aes(y = Negative_Sentiment, colour = "Negative"), se = FALSE)
@@ -20,5 +20,4 @@ p <- p + scale_y_continuous(sec.axis = sec_axis(~.+0, name = "Negative_Sentiment
 p <- p + scale_colour_manual(values = c("blue", "red"))
 p <- p + labs(y = "Positive_Sentiment",
               x = "Date")
-p <- p + theme(legend.position = c(0.8, 0.9))
 p
