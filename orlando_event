@@ -31,9 +31,14 @@ summary(g.reddit.orlando)
   V(g.reddit.orlando)$title <- "Orlando shooting"
   V(g.reddit.orlando)$label <- "" 
   V(g.reddit.orlando)$size <- 50
-  V(g.reddit.orlando)$frame.color <- "white"
+  
 
-  plot.igraph(g.reddit.orlando, vertex.size = 3, vertex.label = NA, edge.width=0.01, edge.arrow.size=.2, edge.color="gray85")
+  plot.igraph(g.reddit.orlando,vertex.size       = 3, 
+                               vertex.label      = " ", 
+                               vertex.size       = 2, 
+                               vertex.label.size = 0.1,
+                               edge.arrow.size   = 0.1,
+                               edge.width        = 0.2))
 
 # Histogram,by day
 
