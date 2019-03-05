@@ -3,7 +3,7 @@ dt.reddit.orlando <- subset(dt.reddit.raw, date > "2016-06-01" & date < "2016-06
 
 # Positive Sentiment Dotplot
 ggplot(dt.reddit.orlando, aes(x = TIMESTAMP, y = Negative_Sentiment)) + 
-  geom_point() + geom_smooth(se = FALSE) + scale_x_datetime(date_labels = "%D", breaks = "1 day")
+  geom_point() + geom_smooth(se = FALSE) + scale_x_datetime(date_labels = "%d", breaks = "1 day")
 
 # Positive/ Negative Sentiment trend line
 p <- ggplot(dt.reddit.orlando, aes(x = TIMESTAMP))
