@@ -3,36 +3,37 @@ library(ggplot2)        # Run once per session
 library(stringr)
 library(igraph)
 
-# Load previously saved data.
-load("reddit_complete.RData")
+```{r}
+# Subset the data: Obama event
+dt.reddit.obama <- subset(dt.reddit.raw, date > "2016-03-14" & date < "2016-03-30")
+```
 
-# Add columns of "date" and "time" to the data table, splited from TIMESTAMP
-dt.reddit.subset <- 
-  dt.reddit.both[, date := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,1]]
-dt.reddit.subset.time <- 
-  dt.reddit.both[, time := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,2]]
-
-# Change the characteristic of date and time
-dt.reddit.subset.time$date <- as.Date(dt.reddit.subset.time$date, format = "%Y-%m-%d")
-dt.reddit.subset.time$time <- as.Date(dt.reddit.subset.time$time, format = "%H:%M:%S")
-
-# Set time filter based on the "date" column for 2 weeks around the Orlando shooting (12/06/2016)
-dt.reddit.obama <- subset(dt.reddit.subset.time, date > "2016-03-14" & date < "2016-03-30")
-
-# Graph data frame
+```{r}
 g.reddit.obama <- graph.data.frame(dt.reddit.obama[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)],
   directed = TRUE)
-  
-# Get summary
-summary(g.reddit.obama)
+```
 
-# Graph plot
-  V(g.reddit.obama)$title <- "Obama's visit to Cuba"
+```{r}
+
+Plot the graph
+ V(g.reddit.obama)$title <- "Obama's visit to Cuba"
   V(g.reddit.obama)$label <- "" 
   V(g.reddit.obama)$size <- 50
-  V(g.reddit.obama)$frame.color <- "white"
 
-  plot.igraph(g.reddit.obama, vertex.size = 3, vertex.label = NA, edge.width=0.01, edge.arrow.size=.2, edge.color="gray85")
+
+  plot.igraph(g.reddit.obama, vertex.color = "red", 
+     vertex.size = 3, 
+     vertex.label = " ", 
+     vertex.label.size = 0.1,
+     edge.arrow.size = 0.1,
+     edge.width = 0.2)
+```
+
+```{r}
+#summary
+summary(g.reddit.obama)
+```
+
 
 # Histogram,by day
 
