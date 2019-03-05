@@ -1,0 +1,55 @@
+library(shiny)
+library(markdown)
+library(shinydashboard)
+library(data.table)
+
+# UI:
+ui <- dashboardPage(
+        dashboardHeader(title = "Subreddit hyperlinks"),  #Limited length. Main title.
+        dashboardSidebar(
+          sidebarMenu( #This is where you define the left menu objects and their targets. 
+            #Note: these need to match the tabItem (tabNames) 
+            menuItem("Intro",  tabName = "Welcome",   icon = icon("dashboard")),
+            menuItem("Events", tabName = "Network",   icon = icon("th"))
+          ) #sidebarMenu end
+        ), #dashboardSidebar end
+  dashboardBody(
+    #The top element is a tab, contained in the tabItems object
+    tabItems(
+      tabItem(tabName = "Welcome",                #This needs to match the tabName in the menu
+        fluidRow(                                 # Boxes need to be put in a row (or column)
+          box(plotOutput("plot1", height = 250)), # you can call any output element here
+          
+          box(
+            title = "Controls",
+            sliderInput("slider", "Number of cats involved:", 1, 100, 50) #min, max, default 
+            ) #box end
+          ) #fluidRow end
+        ), #tab end
+      
+      tabItem(tabName = "Network",               # Here we define a new 
+        fluidRow(                                # Boxes need to be put in a row (or column)
+          box( ), #you could enter a button here #you can call any output element here
+          
+          box(
+            title = "Controls",
+            sliderInput("slider", "Number of cats involved:", 1, 100, 50) #min, max, default 
+          ) #box end
+        ) #fluidRow end
+      ) #tab end
+    ) #tabItems end
+  ) #dashboard body end
+) #dashboardpage end
+
+#SERVER
+server <- function(input, output) {
+  set.seed(122)          #unnecessary
+  histdata <- rnorm(500) # define data for plot
+  
+  output$plot1 <- renderPlot({              #define plot
+    data       <- histdata[seq_len(input$slider)]
+    hist(data)                               #call plot with data
+  }) #end of plot block
+} #end of server block
+
+shinyApp(ui, server)
