@@ -15,9 +15,10 @@ dt.reddit.prop21 <- dt.reddit.prop20[, Compound_Sentiment := str_split_fixed(dt.
 
 
 # add columns of "date" and "time" to the data table, splited from TIMESTAMP
+# only use this column to filter the event period, when doing other analysis, please go back to the TIMESTAMP column.
 dt.reddit.subset <- 
   dt.reddit.prop21[, date := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,1]]
-dt.reddit.subset.time <- 
+# dt.reddit.subset.time <- 
   dt.reddit.prop21[, time := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,2]]
 
 # change the characteristic of date and time
