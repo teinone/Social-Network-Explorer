@@ -1,44 +1,96 @@
+#Import libraries
+library("data.table")
+library("readr")
+library("dplyr")
+library("stringr")
+library("igraph")
 
-library(data.table)     # Run once per session
-library(ggplot2)        # Run once per session
-library(stringr)
-library(igraph)
+# Get the "dt.reddit.raw" dataset by following Tifanny's post
 
-# Load previously saved data.
-load("reddit_complete.RData")
+#================================================
 
-# Add columns of "date" and "time" to the data table, splited from TIMESTAMP
-dt.reddit.subset <- 
-  dt.reddit.both[, date := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,1]]
-dt.reddit.subset.time <- 
-  dt.reddit.both[, time := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,2]]
+```{r}
+#Subset the "dt.reddit.raw" dataset to filer by date revolving Orlando Shooting
+# which happenned on 12/06/2014
 
-# Change the characteristic of date and time
-dt.reddit.subset.time$date <- as.Date(dt.reddit.subset.time$date, format = "%Y-%m-%d")
-dt.reddit.subset.time$time <- as.Date(dt.reddit.subset.time$time, format = "%H:%M:%S")
+dt.reddit.subset.orlando <- subset(dt.reddit.raw, date > "2014-06-10" & date < "2014-06-21")
 
-# Set time filter based on the "date" column for 2 weeks around the Orlando shooting (12/06/2016)
-dt.reddit.orlando <- subset(dt.reddit.subset.time, date > "2016-06-10" & date < "2016-06-21")
+#Graph Orlando Shooting frame
 
-# Graph data frame
-g.reddit.orlando <- graph.data.frame(dt.reddit.orlando[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)],
+g.reddit.orlando <- graph.data.frame(dt.reddit.subset.orlando[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT), vertex_attr<-(dt.reddit.subset.orlando$POST_ID)],
   directed = TRUE)
-  
-# Get summary
+
+# Summary of Orlando graph
+
 summary(g.reddit.orlando)
 
-# Graph plot
-  V(g.reddit.orlando)$title <- "Orlando shooting"
-  V(g.reddit.orlando)$label <- "" 
-  V(g.reddit.orlando)$size <- 50
-  
+# Plot the network graph
+V(g.reddit.orlando)$title <- "Orlando shooting"
+V(g.reddit.orlando)$label <- "" 
+V(g.reddit.orlando)$size <- 50
+#V(g.reddit.orlando)$frame.color <- "white"
 
-  plot.igraph(g.reddit.orlando,vertex.size       = 3, 
-                               vertex.label      = " ", 
-                               vertex.size       = 2, 
-                               vertex.label.size = 0.1,
-                               edge.arrow.size   = 0.1,
-                               edge.width        = 0.2))
+plot.igraph(g.reddit.orlando, vertex.color = "red", 
+     vertex.size = 3, 
+     vertex.label = " ", 
+     vertex.label.size = 0.1,
+     edge.arrow.size = 0.1,
+     edge.width = 0.2)
+     
+```
+
+#================================================
+Positive Sentiments graph - Orlando
+#================================================
+
+```{r}
+# Subset the dt.reddit.subset.orlando, by taking "Compund_Sentiment" greater than and equal to 0.2
+dt.positive.orlando <- dt.reddit.subset.orlando[Compound_Sentiment>=0.2, ]
+
+# Get the graph data frame for positive sentiments Orlando shooting
+g.positive.orlando <- graph.data.frame(dt.positive.orlando[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)], directed = TRUE)
+
+# Change graph layout
+V(g.positive.orlando)$title <- "Orlando shooting"
+V(g.positive.orlando)$label <- "" 
+V(g.positive.orlando)$size <- 50
+#V(g.reddit.orlando)$frame.color <- "white"
+
+# Plot the graph
+plot.igraph(g.positive.orlando, vertex.color = "red", 
+     vertex.size = 3, 
+     vertex.label = " ", 
+     vertex.label.size = 0.1,
+     edge.arrow.size = 0.1,
+     edge.width = 0.2)
+```
+
+#================================================
+Negative Sentiments graph - Orlando
+#================================================
+
+```{r}
+# Subset the dt.reddit.subset.orlando, by taking "Compund_Sentiment" lower and equal to -0.2
+dt.negative.orlando <- dt.reddit.subset.orlando[Compound_Sentiment >= -0.2, ]
+
+# Get the graph data frame
+g.negative.orlando <- graph.data.frame(dt.negative.orlando[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)], directed = TRUE)
+
+# Change the layout
+V(g.negative.orlando)$title <- "Orlando shooting"
+V(g.negative.orlando)$label <- "" 
+V(g.negative.orlando)$size <- 50
+#V(g.reddit.orlando)$frame.color <- "white"
+
+#Plot the graph
+plot.igraph(g.negative.orlando, vertex.color = "red", 
+     vertex.size = 3, 
+     vertex.label = " ", 
+     vertex.label.size = 0.1,
+     edge.arrow.size = 0.1,
+     edge.width = 0.2)
+
+#====================================================================================
 
 # Histogram,by day
 
