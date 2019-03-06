@@ -2,7 +2,8 @@
 dt.r.orlando.subset <- subset(dt.reddit.master, date > "2016-05-13" & date < "2016-07-12")
 
 # Positive/ Negative Sentiment trend line + histogram (Compound Graph)
-p3 <- ggplot(dt.r.orlando.subset, aes(x = TIMESTAMP)) + geom_histogram() + scale_x_datetime(date_labels = "%d", breaks = "1 day")
+p3 <- ggplot(dt.r.orlando.subset, aes(x = TIMESTAMP)) + geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", breaks = "1 day")
 
 # add the secondary y axis, revert the above transformation
 p3 <- p3 + scale_y_continuous(sec.axis = sec_axis(~./10000, name = "Sentiment"))
