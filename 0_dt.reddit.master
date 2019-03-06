@@ -12,6 +12,9 @@ dt.reddit.prop18 <- dt.reddit.both[, Readability := str_split_fixed(dt.reddit.bo
 dt.reddit.prop19 <- dt.reddit.prop18[, Positive_Sentiment := str_split_fixed(dt.reddit.both$PROPERTIES, ",", 86)[, 19]]
 dt.reddit.prop20 <- dt.reddit.prop19[, Negative_Sentiment := str_split_fixed(dt.reddit.both$PROPERTIES, ",", 86)[, 20]]
 dt.reddit.prop21 <- dt.reddit.prop20[, Compound_Sentiment := str_split_fixed(dt.reddit.both$PROPERTIES, ",", 86)[, 21]]
+dt.reddit.prop21$Positive_Sentiment <- as.numeric(dt.reddit.prop21$Positive_Sentiment)
+dt.reddit.prop21$Negative_Sentiment <- as.numeric(dt.reddit.prop21$Negative_Sentiment)
+dt.reddit.prop21$Compound_Sentiment <- as.numeric(dt.reddit.prop21$Compound_Sentiment)
 
 
 # add columns of "date" and "time" to the data table, splited from TIMESTAMP
@@ -27,8 +30,8 @@ dt.reddit.subset.time$date <- as.Date(dt.reddit.subset.time$date, format = "%Y-%
 
 # remove the column of "PROPERTIES", which is unnecessary.
 dt.reddit.subset.time[,6] <- NULL
-dt.reddit.raw <- dt.reddit.subset.time
+dt.reddit.master <- dt.reddit.subset.time
 
-View(dt.reddit.raw)
+View(dt.reddit.master)
 
-#dt.reddit.raw will be the raw data with specific properties and date/time.
+#dt.reddit.master will be the raw data with specific properties and date/time.
