@@ -1,0 +1,13 @@
+TOP PRIORITY
+Rules:
+1. Name of masterset: dt.reddit.master
+2. Name of object
+objecttype.r.name.function.operation
+example: dt.r.orlando.scatter.merge
+3. Name of plot
+plot.objecttype.name
+example: plot.g.orlando / plotly.scatter.subreddits
+3. Name of tab
+name.number.elementtype.time
+example: orlando.1.scatter.14d
+4. Make comments!
