@@ -19,9 +19,24 @@ ui <- dashboardPage(
       tabItem(tabName = "Network",           
               fluidRow(                                # Boxes need to be put in a row (or column)
                 box(strong("Orlando Shooting"),
-                    p("This event concerns the shooting that took place in Orlando and killed 49 people")
-                    )
-                     
+                    p("This event concerns the shooting that took place in Orlando and killed 49 people"),
+                    actionButton("OS", "Enter")
+                    ),
+                
+                box(strong("Ferguson unrest"),
+                    p("The fatal shooting of Michael Brown caused a lot of protests and riots in Ferguson, Missouri"),
+                    actionButton("OS", "Enter")
+                ),
+                
+                box(strong("Orlando Shooting"),
+                    p("This event concerns the shooting that took place in Orlando and killed 49 people"),
+                    actionButton("OS", "Enter")
+                ),
+                
+                box(strong("Orlando Shooting"),
+                    p("This event concerns the shooting that took place in Orlando and killed 49 people"),
+                    actionButton("OS", "Enter")
+                )
             
               ) #fluidRow end
       ) #tab end
