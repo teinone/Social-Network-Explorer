@@ -1,0 +1,18 @@
+# it is a two month period from 2016/02/23 till 2016/04/23.
+dt.r.obama.subset <- subset(dt.reddit.master, date > "2016/02/23" & date < "2016/04/23")
+
+# Positive/ Negative Sentiment trend line + histogram (Compound Graph)
+p2 <- ggplot(dt.r.obama.subset, aes(x = TIMESTAMP)) + geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", breaks = "1 day")
+
+# add the secondary y axis, revert the above transformation
+p2 <- p2 + scale_y_continuous(sec.axis = sec_axis(~./10000, name = "Sentiment"))
+
+# add the next layer of the trend line of Positive/ Negative Sentiment
+p2 <- p2 + geom_smooth(aes(y = Positive_Sentiment * 10000, colour = "Positive"), se = TRUE)
+p2 <- p2 + geom_smooth(aes(y = Negative_Sentiment * 10000, colour = "Negative"), se = FALSE)
+p2 <- p2 + scale_colour_manual(values = c("red", "green"))
+
+# assign themes and colors to the trend line
+p2 <- p2 + labs(y = "Count", x = "Date") + theme(axis.text.x = element_text(size = 9, angle = 90))
+p2
