@@ -7,7 +7,20 @@ example: dt.r.orlando.scatter.merge
 3. Name of plot
 plot.objecttype.name
 example: plot.g.orlando / plotly.scatter.subreddits
-3. Name of tab
+4. Name of tab
 name.number.elementtype.time
 example: orlando.1.scatter.14d
-4. Make comments!
+5. Make comments!
+
+3.5. Name of plot
+# We have to name the plot twice, one in shiny and one in the server functions.
+# I propose the naming conventions as follows
+# for shiny plots: 
+*plot.plottype.name*
+# for assigning the plot to a variable
+*plot.name* (neglect plottype)
+
+#example
+output$plot.hist.post.frequency <- renderPlotly ({
+  plot.post.frequency
+})
