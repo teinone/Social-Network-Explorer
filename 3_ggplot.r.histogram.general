@@ -1,11 +1,5 @@
-
-
-# Load previously saved data.
-load("dt.reddit.raw.RData")
-
-
 # set time filter based on the "date" column
-dt.reddit.subset.filter.2015 <- subset(dt.reddit.subset.time, date > "2014-01-01" & date < "2014-02-27")
+dt.reddit.subset.filter.2015 <- subset(dt.reddit.master, date > "2014-01-01" & date < "2014-02-27")
 
 # run the histogram based on the filtered data table, and change the "time filter" in the "break" parameter
 g.posts.hist <- hist(dt.reddit.subset.filter.2015$date, breaks = "day", 
