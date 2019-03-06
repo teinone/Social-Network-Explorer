@@ -1,0 +1,5 @@
+# dotplot_Positive
+ggplot(dt.reddit.master, aes(x = TIMESTAMP, y = Positive_Sentiment)) + 
+  geom_point() + geom_smooth(method = "gam", se = FALSE) + 
+  scale_x_datetime(date_labels = "%y/%m", breaks = "month") + 
+  theme(axis.text.x = element_text(size = 9, angle = 90))
