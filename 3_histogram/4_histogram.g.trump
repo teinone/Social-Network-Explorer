@@ -1,0 +1,7 @@
+# it is a two month period from 2016/11/01 till 2016/12/31.
+dt.r.trump.subset <- subset(dt.reddit.master, date > "2016/11/01" & date < "2016/12/31")
+
+#histogram
+ggplot(dt.r.trump.subset, aes(x = TIMESTAMP)) + geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", breaks = "1 day") + ggtitle("Trump named TIME's Person of the Year")
+  labs(y = "Count", x = "Date") + theme(axis.text.x = element_text(size = 7, angle = 90))
