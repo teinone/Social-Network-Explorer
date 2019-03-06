@@ -18,25 +18,35 @@ ui <- dashboardPage(
 
       tabItem(tabName = "Network",           
               fluidRow(                                # Boxes need to be put in a row (or column)
-                box(strong("Orlando Shooting"),
-                    p("This event concerns the shooting that took place in Orlando and killed 49 people"),
+                box(width='100%',
+                  strong("Orlando Shooting"),
+                    p("This event concerns the shooting that took place in Pulse, a day nightclub in Orlando, killing 49 people and wounding 53 others. This is one of the deadliest incident of LGBT people in U.S. history. Scary, huh? Click on Enter and get to know the sentiment of thousands of people in the reddit forum."),
                     actionButton("OS", "Enter")
-                    ),
-                
-                box(strong("Ferguson unrest"),
-                    p("The fatal shooting of Michael Brown caused a lot of protests and riots in Ferguson, Missouri"),
+                    )
+                 ),
+              
+              fluidRow( 
+                box(width='100%',
+                  strong("Ferguson unrest"),
+                    p("The fatal shooting of Michael Brown caused a lot of protests and riots in Ferguson, Missouri. The unrest resulted in a huge debate about the law reinforcement in the United States"),
                     actionButton("OS", "Enter")
+                   )
                 ),
                 
-                box(strong("Orlando Shooting"),
-                    p("This event concerns the shooting that took place in Orlando and killed 49 people"),
+              fluidRow( 
+                box(width='100%',
+                  strong("Obama's visit to Cuba"),
+                    p("Obama's visit to Cuba marks the first visit of an American president since 1928. It marks a huge change in relationship between U.S. and Cuba."),
                     actionButton("OS", "Enter")
+                    )
                 ),
                 
-                box(strong("Orlando Shooting"),
+              fluidRow(
+                box(width='100%',
+                  strong("Orlando Shooting"),
                     p("This event concerns the shooting that took place in Orlando and killed 49 people"),
                     actionButton("OS", "Enter")
-                )
+                   )
             
               ) #fluidRow end
       ) #tab end
