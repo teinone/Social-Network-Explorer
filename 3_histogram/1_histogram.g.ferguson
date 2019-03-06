@@ -1,0 +1,7 @@
+# it is a two month period from 2014/07/10 till 2014/09/08.
+dt.r.ferguson.subset <- subset(dt.reddit.master, date > "2014-07-10" & date < "2014-09-08")
+
+#histogram
+ggplot(dt.r.ferguson.subset, aes(x = TIMESTAMP)) + geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", breaks = "1 day") + 
+  labs(y = "Count", x = "Date") + theme(axis.text.x = element_text(size = 7, angle = 90))
