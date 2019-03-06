@@ -1,0 +1,15 @@
+# Positive/ Negative Sentiment trend line + histogram (Compound Graph)
+p0 <- ggplot(dt.reddit.master, aes(x = TIMESTAMP)) + geom_histogram() + 
+  scale_x_datetime(date_labels = "%y/%m", breaks = "month")
+
+# add the secondary y axis, revert the above transformation
+p0 <- p0 + scale_y_continuous(sec.axis = sec_axis(~./400000, name = "Sentiment"))
+
+# add the next layer of the trend line of Positive/ Negative Sentiment
+p0 <- p0 + geom_smooth(aes(y = Positive_Sentiment * 400000, colour = "Positive"), se = TRUE)
+p0 <- p0 + geom_smooth(aes(y = Negative_Sentiment * 400000, colour = "Negative"), se = FALSE)
+p0 <- p0 + scale_colour_manual(values = c("red", "green"))
+
+# assign themes and colors to the trend line
+p0 <- p0 + labs(y = "Count", x = "Date") + theme(axis.text.x = element_text(size = 9, angle = 90))
+p0
