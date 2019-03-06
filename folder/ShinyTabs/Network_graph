@@ -1,0 +1,91 @@
+library(shiny)
+library(markdown)
+library(shinydashboard)
+library(data.table)
+#load("Reddit_Orlando.Rmd")
+
+ui <- dashboardPage(
+  
+  dashboardHeader(title = h3("Subreddit hyperlinks")),  #Limited length. Main title.
+    dashboardSidebar(
+     sidebarMenu( #This is where you define the left menu objects and their targets. 
+              #Note: these need to match the tabItem (tabNames) 
+             menuItem("Intro",  tabName = "Welcome",   icon = icon("dashboard")),
+              menuItem("Events", tabName = "Network",   icon = icon("th"))
+            ) #sidebarMenu end
+          ), #dashboardSidebar end
+          
+    dashboardBody(
+  fluidPage(
+  titlePanel("Orlando shooting network graph"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      helpText("Feel the people's emotions"),
+      
+      selectInput("var", 
+                  label = "Choose a sentiment",
+                  choices = c("Positive", "Negative",
+                              "All"),
+                  selected = "All"),
+      
+      sliderInput("range", 
+                  label = "Select the event surrounding dates",
+                  min = 5, max = 15, value = c(5, 15, 5))
+      ),
+    
+      mainPanel(plotOutput("network"))
+    )
+  )
+ )
+)
+
+server <- function(input, output) {
+  output$network <- renderPlot({
+    plot(g.reddit.orlando.1m, vertex.color = "red", 
+         vertex.size = 3, 
+         vertex.label = " ", 
+         vertex.size = 2, 
+         vertex.label.size = 0.1,
+         edge.arrow.size = 0.1,
+         edge.width = 0.2)
+    
+  })
+}
+    
+    
+    
+    
+# ui <- dashboardPage(
+#   dashboardHeader(title = "Subreddit hyperlinks"),  #Limited length. Main title.
+#   dashboardSidebar(
+#     sidebarMenu( #This is where you define the left menu objects and their targets. 
+#       #Note: these need to match the tabItem (tabNames) 
+#       menuItem("Intro",  tabName = "Welcome",   icon = icon("dashboard")),
+#       menuItem("Events", tabName = "Network",   icon = icon("th"))
+#     ) #sidebarMenu end
+#   ), #dashboardSidebar end
+#   dashboardBody(
+#     #The top element is a tab, contained in the tabItems object
+#     
+#     i <- fluidPage(
+#       
+#      # sidebarLayout(
+#        # sidebarPanel(
+#           selectInput("graph", 
+#                       label = "Choose graph to display",
+#                       choices = c("Simple plot", "Network Graph"), 
+#                       selected = "Network Graph")), 
+#         mainPanel(
+#           plotOutput("myplot")
+#         )
+#       )
+#       
+#     )
+#     
+
+#           
+#           
+#     
+
+shinyApp(ui, server)
