@@ -1,0 +1,6 @@
+# Take Orlando Shooting for example (2016-06-01 ~ 2016-06-28)
+dt.reddit.orlando <- subset(dt.reddit.master, date > "2016-06-01" & date < "2016-06-28")
+
+# Positive Sentiment Dotplot
+ggplot(dt.reddit.orlando, aes(x = TIMESTAMP, y = Negative_Sentiment)) + 
+  geom_point() + geom_smooth(se = FALSE) + scale_x_datetime(date_labels = "%d", breaks = "1 day")
