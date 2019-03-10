@@ -1,0 +1,152 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+Libraries
+```{r}
+library(data.table)     # Run once per session
+library(ggplot2)        # Run once per session
+library(stringr)        # Run once per session
+library(igraph)         # Run once per session
+library(plyr)           # Run once per session
+library(pastecs)
+
+# Load previously saved data.
+#load("reddit_complete.RData")
+
+```
+
+
+
+```{r}
+
+
+#Aggregare sentiment by sourcetarget
+dt.reddit.orlando.v1<- dt.reddit.orlando[ , base::sum(Compound_Sentiment), by=sourcetarget]
+
+# Merge the above file with the original orlando subset to get aggregate sentiment by pair
+dt.reddit.orlando.agg <- merge(dt.reddit.orlando, dt.reddit.orlando.v1, by =  "sourcetarget", all.x=TRUE)
+
+```
+
+
+
+===================================
+7 days before
+==================================
+
+
+```{r}
+
+dt.reddit.orlando.7be <- subset(dt.reddit.orlando.agg, date >= "2016-06-04" & date <= "2016-06-11")
+```
+
+
+
+```{r}
+
+g.reddit.orlando.7be <- graph.data.frame(dt.reddit.orlando.7be[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)],
+  directed = TRUE)
+
+#Define edge attribute
+E(g.reddit.orlando.7be)$weight <- dt.reddit.orlando.7be[, V1]
+```
+
+
+```{r}
+V(g.reddit.orlando.7be)$degree <- degree(g.reddit.orlando.7be, mode = "all", loop=TRUE)
+```
+
+```{r}
+g2 <- induced_subgraph(g.reddit.orlando.7be, V(g.reddit.orlando.7be)$degree>10)
+```
+
+```{r}
+plot(g2, layout=layout.graphopt, 
+     main = g2$name,
+     vertex.color = "blue", 
+     vertex.size = 4, 
+     vertex.label = " ", 
+     edge.arrow.size = 0.2,
+     edge.width=E(g.reddit.orlando.7be)$weight, 
+     edge.color=ifelse(E(g.reddit.orlando.7be)$weight >= 0.00, "green", "red"))
+```
+
+
+```{r}
+par(mai=c(0,0,1,0)) 
+plot(g.reddit.orlando.7be, layout=layout.graphopt, 
+     main = g.reddit.orlando.7be$name,
+     vertex.color = "blue", 
+     vertex.size = 2, 
+     vertex.label = " ", 
+     edge.arrow.size = 0.2,
+     edge.width=E(g.reddit.orlando.7be)$weight, 
+     edge.color=ifelse(E(g.reddit.orlando.7be)$weight >= 0.00, "green", "red"))
+
+```
+
+====
+after
+=====
+
+```{r}
+
+dt.reddit.orlando.7af <- subset(dt.reddit.orlando.agg, date >= "2016-06-12" & date <= "2016-06-19")
+```
+
+
+
+```{r}
+
+g.reddit.orlando.7af <- graph.data.frame(dt.reddit.orlando.7af[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)],
+  directed = TRUE)
+
+#Define edge attribute
+E(g.reddit.orlando.7af)$weight <- dt.reddit.orlando.7af[, V1]
+```
+
+```{r}
+par(mai=c(0,0,1,0)) 
+plot(g.reddit.orlando.7af, layout=layout.graphopt, 
+     main = g.reddit.orlando.7af$name,
+     vertex.color = "blue", 
+     vertex.size = 2, 
+     vertex.label = " ", 
+     edge.arrow.size = 0.2,
+     edge.width=E(g.reddit.orlando.7af)$weight, 
+     edge.color=ifelse(E(g.reddit.orlando.7af)$weight >= 0.00, "green", "red"))
+
+```
+
+
+```{r}
+g3 <- induced_subgraph(g.reddit.orlando.7af, V(g.reddit.orlando.7af)$degree>=10)
+```
+
+
+```{r}
+V(g.reddit.orlando.7af)$degree
+```
+
+
+```{r}
+V(g.reddit.orlando.7af)$degree <- degree(g.reddit.orlando.7af, mode = "all", loop=FALSE)
+```
+
+
+
+```{r}
+plot(g3, layout=layout.graphopt, 
+     main = g3$name,
+     vertex.color = "blue", 
+     vertex.size = 4, 
+     vertex.label = " ", 
+     edge.arrow.size = 0.2,
+     edge.width=E(g3)$weight, 
+     edge.color=ifelse(E(g3)$weight >= 0.00, "green", "red"))
+```
+
+
+
