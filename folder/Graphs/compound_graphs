@@ -1,0 +1,68 @@
+# Ferguson unrest ===============
+# Positive/ Negative Sentiment trend line + histogram (Compound Graph)
+combo.ferguson <- ggplot(dt.reddit.ferguson, aes(x = TIMESTAMP)) + geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", breaks = "1 day")
+
+# add the secondary y axis, revert the above transformation
+combo.ferguson <- combo.ferguson + scale_y_continuous(sec.axis = sec_axis(~./4000, name = "Sentiment"))
+
+# add the next layer of the trend line of Positive/ Negative Sentiment
+combo.ferguson <- combo.ferguson + geom_smooth(aes(y = Positive_Sentiment * 4000, colour = "Positive"), se = FALSE)
+combo.ferguson <- combo.ferguson + geom_smooth(aes(y = Negative_Sentiment * 4000, colour = "Negative"), se = FALSE)
+combo.ferguson <- combo.ferguson + scale_colour_manual(values = c("red", "green"))
+
+# assign themes and colors to the trend line
+combo.ferguson <- combo.ferguson + labs(y = "Count", x = "Date") + theme(axis.text.x = element_text(size = 9, angle = 90))
+combo.ferguson
+
+# Obama's visit to Cuba ============
+# Positive/ Negative Sentiment trend line + histogram (Compound Graph)
+combo.obama <- ggplot(dt.reddit.obama, aes(x = TIMESTAMP)) + geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", breaks = "1 day")
+
+# add the secondary y axis, revert the above transformation
+combo.obama <- combo.obama + scale_y_continuous(sec.axis = sec_axis(~./4000, name = "Sentiment"))
+
+# add the next layer of the trend line of Positive/ Negative Sentiment
+combo.obama <- combo.obama + geom_smooth(aes(y = Positive_Sentiment * 4000, colour = "Positive"), se = FALSE)
+combo.obama <- combo.obama + geom_smooth(aes(y = Negative_Sentiment * 4000, colour = "Negative"), se = FALSE)
+combo.obama <- combo.obama + scale_colour_manual(values = c("red", "green"))
+
+# assign themes and colors to the trend line
+combo.obama <- combo.obama + labs(y = "Count", x = "Date") + theme(axis.text.x = element_text(size = 9, angle = 90))
+combo.obama
+
+# Orlando Shooting ==============
+combo.orlando <- ggplot(dt.reddit.orlando, aes(x = TIMESTAMP)) + geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", breaks = "1 day")
+
+# add the secondary y axis, revert the above transformation
+combo.orlando <- combo.orlando + scale_y_continuous(sec.axis = sec_axis(~./4000, name = "Sentiment"))
+
+# add the next layer of the trend line of Positive/ Negative Sentiment
+combo.orlando <- combo.orlando + geom_smooth(aes(y = Positive_Sentiment * 4000, colour = "Positive"), se = FALSE)
+combo.orlando <- combo.orlando + geom_smooth(aes(y = Negative_Sentiment * 4000, colour = "Negative"), se = FALSE)
+combo.orlando <- combo.orlando + scale_colour_manual(values = c("red", "green"))
+
+# assign themes and colors to the trend line
+combo.orlando <- combo.orlando + labs(y = "Count", x = "Date") + theme(axis.text.x = element_text(size = 9, angle = 90))
+combo.orlando
+
+# Trump named TIME's Person of the Year =============
+# Positive/ Negative Sentiment trend line + histogram (Compound Graph)
+combo.trump <- ggplot(dt.reddit.trump , aes(x = TIMESTAMP)) + geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", breaks = "1 day")
+
+# add the secondary y axis, revert the above transformation
+combo.trump <- combo.trump + scale_y_continuous(sec.axis = sec_axis(~./4000, name = "Sentiment"))
+
+# add the next layer of the trend line of Positive/ Negative Sentiment
+combo.trump <- combo.trump + geom_smooth(aes(y = Positive_Sentiment * 4000, colour = "Positive"), se = FALSE)
+combo.trump <- combo.trump + geom_smooth(aes(y = Negative_Sentiment * 4000, colour = "Negative"), se = FALSE)
+combo.trump <- combo.trump + scale_colour_manual(values = c("red", "green"))
+
+# assign themes and colors to the trend line
+combo.trump <- combo.trump + labs(y = "Count", x = "Date") + theme(axis.text.x = element_text(size = 9, angle = 90))
+combo.trump
+
+
