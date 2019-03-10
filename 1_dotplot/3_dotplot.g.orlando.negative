@@ -1,7 +1,0 @@
-# it's a two month period from 2016/05/13 till 2016/07/12.
-dt.r.orlando.subset <- subset(dt.reddit.master, date > "2016-05-13" & date < "2016-07-12")
-
-ggplot(dt.r.orlando.subset, aes(x = TIMESTAMP, y = Negative_Sentiment)) + 
-  geom_point() + geom_smooth(method = "gam", se = FALSE) + 
-  scale_x_datetime(date_labels = "%m/%d", breaks = "1 day") + 
-  theme(axis.text.x = element_text(size = 9, angle = 90))
