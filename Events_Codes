@@ -1,0 +1,54 @@
+#Load the librariesLibraries
+
+library(data.table)     # Run once per session
+library(ggplot2)        # Run once per session
+library(stringr)        # Run once per session
+library(igraph)         # Run once per session
+library(plyr)           # Run once per session
+library(pastecs)
+
+# Load previously saved data.
+load("reddit_complete.RData")
+
+===================================================
+Orlando
+===================================================
+
+
+#Subset the "dt.reddit.raw" dataset to filer by date revolving Orlando Shooting
+# which happenned on 12/06/2014
+dt.reddit.orlando.v1 <- subset(dt.reddit.master, date >= "2016-05-13" & date < "2016-07-12")
+
+# Convert the compound sentiment to numeric in order to aggregate later
+dt.reddit.orlando.v1$Compound_Sentiment<- as.numeric(dt.reddit.orlando.v1$Compound_Sentiment)
+dt.reddit.orlando.v1$Positive_Sentiment<- as.numeric(dt.reddit.orlando.v1$Positive_Sentiment)
+dt.reddit.orlando.v1$Negative_Sentiment<- as.numeric(dt.reddit.orlando.v1$Negative_Sentiment)
+
+#Aggregare sentiment by sourcetarget
+dt.reddit.orlando.v2<- dt.reddit.orlando.v1[ , base::sum(Compound_Sentiment), by=sourcetarget]
+
+# Merge the above file with the original orlando subset to get aggregate sentiment by pair
+dt.reddit.orlando <- merge(dt.reddit.orlando.v2, dt.reddit.orlando.v1, by =  "sourcetarget", all.x=TRUE)
+
+
+
+
+==========================================================
+Obama
+==========================================================
+
+
+#Subset the "dt.reddit.raw" dataset to filer by date revolving Orlando Shooting
+# which happenned on 12/06/2014
+dt.reddit.obama.v1 <- subset(dt.reddit.master, date >= "2016-02-23" & date <= "2016-04-23")
+
+# Convert the compound sentiment to numeric in order to aggregate later
+dt.reddit.obama.v1$Compound_Sentiment<- as.numeric(dt.reddit.obama.v1$Compound_Sentiment)
+dt.reddit.obama.v1$Positive_Sentiment<- as.numeric(dt.reddit.obama.v1$Positive_Sentiment)
+dt.reddit.obama.v1$Negative_Sentiment<- as.numeric(dt.reddit.obama.v1$Negative_Sentiment)
+
+#Aggregare sentiment by sourcetarget
+dt.reddit.obama.v2<- dt.reddit.obama.v1[ , base::sum(Compound_Sentiment), by=sourcetarget]
+
+# Merge the above file with the original orlando subset to get aggregate sentiment by pair
+dt.reddit.obama <- merge(dt.reddit.obama.v2, dt.reddit.obama.v1, by =  "sourcetarget", all.x=TRUE)
