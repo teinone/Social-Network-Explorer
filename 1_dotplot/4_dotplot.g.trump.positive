@@ -1,8 +1,0 @@
-# it is a two month period from 2016/11/01 till 2016/12/31.
-dt.r.trump.subset <- subset(dt.reddit.master, date > "2016/11/01" & date < "2016/12/31")
-
-# dotplot_Positive
-ggplot(dt.r.trump.subset, aes(x = TIMESTAMP, y = Positive_Sentiment)) + 
-  geom_point() + geom_smooth(method = "gam", se = FALSE) + 
-  scale_x_datetime(date_labels = "%m/%d", breaks = "1 day") + 
-  theme(axis.text.x = element_text(size = 9, angle = 90))
