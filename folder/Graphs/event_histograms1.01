@@ -1,0 +1,58 @@
+# General function for creating plots
+# Params: enter subset dt, event title as a string 
+f.event.hist <- function(dt.x, eventtitle){
+    final.plot <- 
+      ggplot(dt.x, aes(x = TIMESTAMP)) + 
+      geom_histogram() + 
+      scale_x_datetime(date_labels = "%m/%d",
+                       breaks      = "1 day") + 
+      ggtitle(toString(eventtitle)) + 
+      labs(y = "Count", 
+           x = "Date") + 
+      theme(axis.text.x = element_text(size = 7, angle = 90))
+    return(final.plot)
+  }
+f.event.hist(dt.reddit.subset.orlando, "Orlando")
+
+
+# AD HOC IMPLEMENTATIONS:
+
+
+# Ferguson unrest =====
+ggplot(dt.reddit.ferguson, aes(x = TIMESTAMP)) + 
+  geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d",
+                   breaks      = "1 day") + 
+  ggtitle("Ferguson Unrest") + 
+  labs(y = "Count", 
+       x = "Date") + 
+  theme(axis.text.x = element_text(size = 7, angle = 90))
+
+# Obama's visit to Cuba =====
+ggplot(dt.reddit.obama, aes(x = TIMESTAMP)) + 
+  geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", 
+                   breaks      = "1 day") + 
+  ggtitle("Obama's visit to Cuba") + 
+  labs(y = "Count", 
+       x = "Date") + 
+  theme(axis.text.x = element_text(size = 7, angle = 90))
+
+# Orlando Shooting =====
+ggplot(dt.reddit.orlando, aes(x = TIMESTAMP)) + 
+  geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", 
+                   breaks      = "1 day") + 
+  ggtitle("Orlando Shooting") +
+  labs(y = "Count", x = "Date") + 
+    theme(axis.text.x = element_text(size = 7, angle = 90))
+
+# Trump named TIME's Person of the Year =====
+ggplot(dt.reddit.trump , aes(x = TIMESTAMP)) + 
+  geom_histogram() + 
+  scale_x_datetime(date_labels = "%m/%d", 
+                   breaks      = "1 day") + 
+  ggtitle("Trump named TIME's Person of the Year")
+  labs(y = "Count", 
+       x = "Date") + 
+  theme(axis.text.x = element_text(size = 7, angle = 90))
