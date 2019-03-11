@@ -16,7 +16,7 @@ f.link.prediction <- function(g.reddit, dt.top10){
   dt.predicted.links <- as.data.table(m.predicted.links)
   
   # Add row names
-  dt.predicted.links$rownames <-rownames(dt.predicted.link) <- c(dt.top10$name[1:7])
+  dt.predicted.links$rownames <-rownames(dt.predicted.links) <- c(dt.top10$name[1:7])
   
   # Create vectors for ordering the columns.
   c.top7  <- c(dt.top10$name[1:7])
