@@ -96,7 +96,7 @@ rm(dt.reddit.ferguson)
 # Obama Visiting Cuba==========================================================
 dt.reddit.obama <- 
   subset(dt.reddit.master, 
-         date > "2016/03/17" & date < "2016/03/31")[order(TIMESTAMP)]
+         date > "2016-03-17" & date < "2016-03-31")[order(TIMESTAMP)]
 
 # Save and drop table
 saveRDS(dt.reddit.obama, file = "dt.reddit.obama.RDS")
@@ -115,7 +115,7 @@ rm(dt.reddit.orlando)
 # Trump named TIME's Person of the Year========================================
 dt.reddit.trump <- 
   subset(dt.reddit.master, 
-         date > "2016/11/24" & date < "2016/12/08")[order(TIMESTAMP)]
+         date > "2016-11-24" & date < "2016-12-08")[order(TIMESTAMP)]
 
 saveRDS(dt.reddit.trump, file = "dt.reddit.trump.RDS")
 rm(dt.reddit.trump)
