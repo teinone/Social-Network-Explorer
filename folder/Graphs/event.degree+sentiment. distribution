@@ -41,8 +41,7 @@ geom_point() +
 geom_line() + 
 geom_smooth(se=F) + 
 xlab("Frequency") + 
-ylab("Sentiment") +
-scale_y_continuous(breaks = pretty(dt.component.sentiment.ferguson$V1), labels = abs(pretty(dt.component.sentiment.ferguson$V1))
+ylab("Sentiment") 
 
 
 
