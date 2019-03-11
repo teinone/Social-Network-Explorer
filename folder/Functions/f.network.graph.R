@@ -1,12 +1,6 @@
-library(data.table)     # Run once per session
-library(ggplot2)        # Run once per session
-library(stringr)        # Run once per session
-library(igraph)         # Run once per session
-library(plyr)           # Run once per session
-library(pastecs)
-
-
+#==============================================================================
 # FUNCTION: create full network graph and set sentiment as edge weight
+#==============================================================================
 f.network.graph <- function(dt.x) {
 
 # Calculate sums for sentiment by source|target
@@ -37,9 +31,9 @@ return(g.event)
 # Example use:
 g.orlando.full <- f.network.graph(dt.reddit.orlando)
 
-
-
+#==============================================================================
 # FUNCTION: induce subgraph from g.event
+#==============================================================================
 f.network.subgraph <- function (g.event) {
   #Create subgraph with nodes with degree >10
   g.subgraph <- induced_subgraph(g.event, V(g.event)$degree > 10)
@@ -62,8 +56,9 @@ plot(g.orlando.subgraph,
 
 
 
-
+#==============================================================================
 # FUNCTION: find top 10 nodes by highest degree
+#==============================================================================
 f.top10.vertices <- function(g.event) {
 
   # Get the vertex attributes for the tables: user input element
