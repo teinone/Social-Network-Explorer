@@ -1,6 +1,7 @@
-================================
 
-Sentiment
+THIS HAS BEEN TURNED INTO A FUNCTION, USE THAT.
+================================
+Sentiment change
 ============================
 
 #Create a new variable sent which takes the value of compound sentiment after the event, matches with the unique sourcetarget combination and adds them to the dataset before the event.   
