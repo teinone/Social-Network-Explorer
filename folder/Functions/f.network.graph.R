@@ -43,16 +43,28 @@ f.network.subgraph <- function (g.event) {
 # Example use:
 g.orlando.subgraph <- f.network.subgraph(g.orlando.full)
 
-par(mai=c(0,0,1,0))
-plot(g.orlando.subgraph,
-     layout=layout.graphopt, 
-     main = g2$name,
-     vertex.color = "blue", 
-     vertex.size = 4, 
-     vertex.label = " ", 
-     edge.arrow.size = 0.2,
-     edge.width=E(g.reddit.orlando.7be)$weight, 
-     edge.color=ifelse(E(g.reddit.orlando.7be)$weight >= 0.00, "green", "red"))
+
+
+#==============================================================================
+# PLOTTING FUNCTION: Takes a graph object, plots it.
+#==============================================================================
+
+f.plot.network.graph <- function(g.subgraph) {
+   par(mai=c(0,0,1,0))
+   plot.g <-
+    plot(g.subgraph, layout = layout.fruchterman.reingold, 
+       main = g.subgraph$name, 
+       vertex.color = "blue", 
+       vertex.size = 4, 
+       vertex.label = " ", 
+       vertex.label.size = 0.1,
+       edge.arrow.size = 0.2,
+       edge.width=E(g.subgraph)$weight, 
+       edge.color=ifelse(E(g.subgraph)$weight >= 0.00, "green", "red"))
+   return(plot.g)
+}
+# Example:
+f.plot.network.graph(g.orlando.subgraph)
 
 
 
