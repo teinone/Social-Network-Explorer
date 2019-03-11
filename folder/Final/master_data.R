@@ -40,8 +40,9 @@ dt.reddit.prop21$Negative_Sentiment <- as.numeric(dt.reddit.prop21$Negative_Sent
 dt.reddit.prop21$Compound_Sentiment <- as.numeric(dt.reddit.prop21$Compound_Sentiment)
 
 
-# add columns of "date" and "time" to the data table, splited from TIMESTAMP
-# only use this column to filter the event period, when doing other analysis, please go back to the TIMESTAMP column.
+# Add columns of "date" and "time" to the data table, splited from TIMESTAMP
+# Note: only use this column to filter the event period. When doing other analysis,
+# please go back to the TIMESTAMP column.
 dt.reddit.subset <- 
   dt.reddit.prop21[, date := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,1]]
 dt.reddit.subset.time <- 
