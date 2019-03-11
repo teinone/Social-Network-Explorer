@@ -13,13 +13,13 @@ f.subset.time <- function(dt.x, startdate, enddate) {
   
   #Ensure that startdate and enddate are dateTime objects
   startdate <- as.Date(startdate, format = "%Y-%m-%d")
-  eddate    <- as.Date(enddate,   format = "%Y-%m-%d")
+  enddate   <- as.Date(enddate,   format = "%Y-%m-%d")
   
   #Subset dt with start and and end date, order by TIMESTAMP
   dt.subset.time <- 
     subset(dt.x, 
            date > toString(startdate) & 
-             date < toString(enddate)
+           date < toString(enddate)
     )[order(TIMESTAMP)]  
   #Return subsetted dt.
   return(dt.subset.time)
