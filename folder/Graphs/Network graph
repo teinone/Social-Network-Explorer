@@ -1,15 +1,39 @@
-#Import libraries
-library("data.table")
-library("readr")
-library("dplyr")
-library("stringr")
-library("igraph")
 
-#================================================
+# Mock data:
+dt.reddit.subset.orlando.small <- dt.reddit.subset.orlando[1:1000, ]
+
+
+#Function:
+
+f.network.graph <- function(dt.x, title) {
+  # Turn the dt. into a directed graph using source-target pairs 
+  g.reddit <- 
+    graph.data.frame(dt.x[, list(SOURCE_SUBREDDIT, 
+                                 TARGET_SUBREDDIT)], directed = TRUE)
+  
+  #Create the title and set size
+  V(g.reddit)$title <- toString(title)
+  V(g.reddit)$label <- "" 
+  V(g.reddit)$size <- 50
+
+  #Store plotted graph
+   
+  return(g.reddit)
+}
+# Create graph object from dt, "Title"
+g.orlando <- f.network.graph(dt.reddit.subset.orlando.small, "Orlando")
+
+# Plot the graph
+plot(g.orlando, vertex.size = 1, vertex.label = NA, edge.width=0.3)
+
+
+
+#AD HOC IMPLEMENTATION
 
 #Data frame for graph
-g.reddit <- graph.data.frame(dt.reddit.both[, list(SOURCE_SUBREDDIT, TARGET_SUBREDDIT)],
-  directed = TRUE)
+g.reddit <- 
+  graph.data.frame(dt.reddit.both[, list(SOURCE_SUBREDDIT, 
+                                        TARGET_SUBREDDIT)], directed = TRUE)
 
 summary(g.reddit)
 
@@ -17,7 +41,7 @@ summary(g.reddit)
 #================================================
 
 # Plot network graph
-V(g.reddit)$title <- "Source and Traget Subbredit Network"
+V(g.reddit)$title <- "Source and Target Subbredit Network"
 V(g.reddit)$label <- "" 
 V(g.reddit)$size <- 50
 
