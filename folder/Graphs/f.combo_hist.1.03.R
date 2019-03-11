@@ -1,7 +1,7 @@
 #Function:
 #Note: this is not the combochart, rename.
 
-f.combochart <- function(dt.x, Title){
+f.combochart <- function(dt.x){
 
 # Positive/ Negative Sentiment trend line + histogram (Compound Graph)
 combo.event <- 
