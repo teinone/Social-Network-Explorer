@@ -37,11 +37,19 @@ dt.component.sentiment.ferguson <- as.data.table(table((V(g.biggest.component.fe
 
 
 ggplot(dt.component.sentiment.ferguson, aes(x=N, y=V1)) + 
-geom_point() + 
-geom_line() + 
-geom_smooth(se=F) + 
-xlab("Frequency") + 
-ylab("Sentiment") 
+  geom_point() + 
+  geom_line() + 
+  geom_smooth(se=F) + 
+  xlab("Frequency") + 
+  ylab("Sentiment") +
+  scale_x_continuous(breaks = round(seq(min(dt.component.sentiment.ferguson$N), max(dt.component.sentiment.ferguson$N), by = 50), 1))
+
+                     
+                     
+                     
+                     
+  
+
 
 
 
