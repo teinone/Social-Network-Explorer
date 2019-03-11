@@ -1,0 +1,13 @@
+# The event subsets are all for two weeks based on the timeline file on Google Drive
+
+# Ferguson Unrest
+dt.reddit.ferguson <- subset(dt.reddit.master, date > "2014-08-02" & date < "2014-08-16")[order(TIMESTAMP)]
+
+# Obama Visiting Cuba
+dt.reddit.obama <- subset(dt.reddit.master, date > "2016/03/17" & date < "2016/03/31")[order(TIMESTAMP)]
+
+# Orlando Shooting
+dt.reddit.orlando <- subset(dt.reddit.master, date > "2016-06-05" & date < "2016-06-19")[order(TIMESTAMP)]
+
+# Trump named TIME's Person of the Year
+dt.reddit.trump <- subset(dt.reddit.master, date > "2016/11/24" & date < "2016/12/08")[order(TIMESTAMP)]
