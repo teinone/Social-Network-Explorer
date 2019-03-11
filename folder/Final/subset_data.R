@@ -103,17 +103,17 @@ dt.r.orlando.5d.a <- f.subset.time(dt.reddit.orlando,  "2016-06-12","2016-06-14"
 #=============================================================================
 
 # 15 day timeftame b ~ before, a ~ after, f ~ full
-dt.r.trump.15d.b <- f.subset.time(dt.reddit.trump, "2016-11-23","2016-12-31")
+dt.r.trump.15d.b <- f.subset.time(dt.reddit.trump, "2016-11-23","2016-11-31")
 dt.r.trump.15d.f <- f.subset.time(dt.reddit.trump, "2016-11-23","2016-12-08")
 dt.r.trump.15d.a <- f.subset.time(dt.reddit.trump, "2016-12-01","2016-12-08")
 
 # 10 day timeftame
-dt.r.trump.10d.b <- f.subset.time(dt.reddit.trump, "2016-11-25","2016-12-31")
+dt.r.trump.10d.b <- f.subset.time(dt.reddit.trump, "2016-11-25","2016-11-31")
 dt.r.trump.10d.f <- f.subset.time(dt.reddit.trump, "2016-11-25","2016-12-06")
 dt.r.trump.10d.a <- f.subset.time(dt.reddit.trump, "2016-12-01","2016-12-06")
 
 # 5 day timeftame
-dt.r.trump.5d.b <- f.subset.time(dt.reddit.trump,  "2016-11-28","2016-12-31")
+dt.r.trump.5d.b <- f.subset.time(dt.reddit.trump,  "2016-11-28","2016-11-31")
 dt.r.trump.5d.f <- f.subset.time(dt.reddit.trump,  "2016-11-28","2016-12-03")
 dt.r.trump.5d.a <- f.subset.time(dt.reddit.trump,  "2016-12-01","2016-12-03")
 
