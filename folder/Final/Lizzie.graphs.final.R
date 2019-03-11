@@ -265,6 +265,7 @@ ui <-
                                 ),# end of tabPanel
                                 # Lizzie's sentiment distribution graph
                                 tabPanel("Sentiment analysis II", plotlyOutput("sentiment.distribution.trump"),
+                          
                                          p("Remember to set graph width = '100%'")
                                 ),# end of tabPanel
                                 # Minxin's graph
@@ -278,7 +279,7 @@ ui <-
                                          p("Remember to set graph width = '100%'")
                                 ),#end of tabPanel
                                 # Degree distribution
-                                tabPanel("Degree distribution", plotOutput("degree.distributiom.trump"),
+                                tabPanel("Degree distribution", plotOutput("degree.distribution.trump"),
                                       
                                          p("Remember to set graph width = '100%'")
                                 )#end of tabPanel
@@ -420,8 +421,6 @@ server <- function(input, output){
     
     # Update Event 
     dt.obama.sentiment <- merge(dt.reddit.obama, total_sentiment_obama, by = "SOURCE_SUBREDDIT")
-    
-    #Plot Network degree distribution
     g.obama <- graph.data.frame(dt.reddit.obama, directed= TRUE)
     V(g.obama)$ag_sentiment <- as.numeric(dt.obama.sentiment$total_sentiment_obama[match(V(g.obama)$name,dt.reddit.obama$SOURCE_SUBREDDIT)])
     # Agregated sentiment and most connected component
@@ -488,7 +487,29 @@ server <- function(input, output){
     plot.degree.distribution.orlando
     
   }) #end degree.distribution.orlando
-  output$degree.distribution.trump <- renderPlot({ # start degree.distribution.trump
+  
+  # start degree.distribution.obama
+  output$degree.distribution.obama <- renderPlot({ 
+    dt.obama.sentiment <- dt.reddit.obama[,list(unique(SOURCE_SUBREDDIT))]
+    setnames(dt.obama.sentiment, c("V1"), c("SOURCE_SUBREDDIT"))
+    total_sentiment_obama <- setDT(dt.reddit.obama)[, .(total_sentiment_obama = sum(Compound_Sentiment)), by = SOURCE_SUBREDDIT]
+    
+    # Update Event 
+    dt.obama.sentiment <- merge(dt.reddit.obama, total_sentiment_obama, by = "SOURCE_SUBREDDIT")
+    
+    #Plot Network degree distribution
+    g.obama <- graph.data.frame(dt.reddit.obama, directed= TRUE)
+    V(g.obama)$ag_sentiment <- as.numeric(dt.obama.sentiment$total_sentiment_obama[match(V(g.obama)$name,dt.reddit.obama$SOURCE_SUBREDDIT)])
+    
+    degree.dist.obama <- degree_distribution(g.obama, cumulative=T, mode="all")
+    plot.degree.distribution.obama <-
+      plot(x=0:max(degree(g.obama)), y=1-degree.dist.obama, pch=20, cex=1.2, col="orange", 
+           xlab="Degree", ylab="Frequency")
+    plot.degree.distribution.obama
+    
+  }) #end degree.distribution.obama
+  # start degree.distribution.trump
+  output$degree.distribution.trump <- renderPlot({ 
     dt.trump.sentiment <- dt.reddit.trump[,list(unique(SOURCE_SUBREDDIT))]
     setnames(dt.trump.sentiment, c("V1"), c("SOURCE_SUBREDDIT"))
     total_sentiment_trump <- setDT(dt.reddit.trump)[, .(total_sentiment_trump = sum(Compound_Sentiment)), by = SOURCE_SUBREDDIT]
@@ -506,8 +527,11 @@ server <- function(input, output){
            xlab="Degree", ylab="Frequency")
     plot.degree.distribution.trump
     
-  }) # end of degree.distribution.trump
+  }) #end degree.distribution.trump
   
+  
+  
+
   
 }# end of server side 
 
