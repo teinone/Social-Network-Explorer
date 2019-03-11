@@ -25,10 +25,12 @@ dt.reddit.prop19 <-
   dt.reddit.prop18[, Positive_Sentiment := 
                      str_split_fixed(dt.reddit.both$PROPERTIES, ",", 86)
                    [, 19]]
+
 dt.reddit.prop20 <- 
   dt.reddit.prop19[, Negative_Sentiment := 
                      str_split_fixed(dt.reddit.both$PROPERTIES, ",", 86)
                    [, 20]]
+
 dt.reddit.prop21 <- 
   dt.reddit.prop20[, Compound_Sentiment := 
                      str_split_fixed(dt.reddit.both$PROPERTIES, ",", 86)
@@ -45,6 +47,7 @@ dt.reddit.prop21$Compound_Sentiment <- as.numeric(dt.reddit.prop21$Compound_Sent
 # please go back to the TIMESTAMP column.
 dt.reddit.subset <- 
   dt.reddit.prop21[, date := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,1]]
+
 dt.reddit.subset.time <- 
   dt.reddit.prop21[, time := str_split_fixed(dt.reddit.both$TIMESTAMP, " ", 2)[,2]]
 
