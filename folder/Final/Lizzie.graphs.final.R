@@ -17,7 +17,7 @@ library(data.table)
 # Change working directory
 getwd()
 setwd("/Users/Desktop/NDATeam12/shiny/")
-load("/Users/Desktop/NDATeam12/reddit.masters.RData")
+load("/Users/Downloads/dt.reddit.time.RData")
 
 # ---------------------------------------------------------------------------------
 # IMPORTANT
