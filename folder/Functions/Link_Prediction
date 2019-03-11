@@ -1,0 +1,42 @@
+==================================
+Link prediction
+
+===========================
+
+
+```{r}
+# Predict the links for the top 7 most connected subredditsusing Jaccard method
+
+predicted_links <- similarity(g.reddit.orlando.7be, v=c("askreddit", "bestof","subredditdrama", "iama", "drama", "pics", "the_donald"), method = "jaccard")
+
+```
+
+
+```{r}
+# Change the column names
+colnames(predicted_links) <-c("askreddit", "bestof","subredditdrama", "iama", "drama", "pics", "the_donald")
+```
+
+
+
+
+```{r}
+#Change the predicted links to data table
+dt.predicted.link <-as.data.table(predicted_links)
+```
+
+```{r}
+# Add row names
+dt.predicted.link$rownames <-rownames(dt.predicted.link)<-c("askreddit", "bestof","subredditdrama", "iama", "drama", "pics", "the_donald")
+```
+
+
+```{r}
+#Set the order of the columns
+setcolorder(dt.predicted.link, c("rownames", "askreddit", "bestof","subredditdrama", "iama", "drama", "pics", "the_donald"))
+```
+
+```{r}
+
+dt.predicted.link
+```
