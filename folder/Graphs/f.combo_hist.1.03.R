@@ -36,6 +36,7 @@ combo.event <- combo.event +
 # Return final graph
 return (combo.event)
 }
+#Example use:
 combo.orlando <- f.combochart(dt.reddit.subset.orlando)
 plot(combo.orlando)
 
