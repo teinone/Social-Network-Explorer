@@ -69,6 +69,7 @@ dt.trump.top.10.15.f <- f.top10.vertices(g.trump.15d.f)
 ##=============================================================================  
 
 dt.top10.trump.centrality <- f.centrality(dt.r.trump.15d.f)
+dt.centrality.trump <- f.centrality(dt.r.trump.15d.f)
 
 ##=============================================================================
 #  Link prediction
