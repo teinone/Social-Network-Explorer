@@ -74,7 +74,7 @@ dt.top10.trump.centrality <- f.centrality(dt.r.trump.15d.f)
 #  Link prediction
 ##=============================================================================  
 
-dt.top10.trump.links <- f.link.prediction(g.trump.15d.f, trump.top.10.15.f)
+dt.top10.trump.links <- f.link.prediction(g.trump.15d.f, dt.trump.top.10.15.f)
 
 ##=============================================================================
 #  Change in sentiment
