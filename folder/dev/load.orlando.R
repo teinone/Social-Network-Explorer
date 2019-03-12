@@ -82,4 +82,10 @@ dt.top10.orlando.links <- f.link.prediction(g.orlando.15d.f, dt.orlando.top.10.1
 
 dt.orlando.change <- f.sentiment.change(dt.r.orlando.15d.b, dt.r.orlando.15d.a)
 
+##=============================================================================
+#  Summary stats
+##=============================================================================  
+
+
+df.orlando.stats <- f.stats(g.orlando.subgraph.15d.f)
 
