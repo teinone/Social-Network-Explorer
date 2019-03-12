@@ -2,7 +2,10 @@
 # FUNCTION: create full network graph and set sentiment as edge weight
 #==============================================================================
 f.network.graph <- function(dt.x) {
-
+  
+  #TESTING DATA
+  dt.x <- dt.r.ferguson.10d.f
+    
   # Calculate sums for sentiment by source|target
   dt.aggregate <- dt.x[ , base::sum(Compound_Sentiment),
                                     by = sourcetarget]
@@ -27,12 +30,18 @@ f.network.graph <- function(dt.x) {
   
   # Get the node connections
   V(g.event)$degree <- degree(g.event, mode = "all", loops = TRUE)
-
+  
+  # #Add centrality measures to the graphs, omit weight because igraph is a mess.
+ 
+  V(g.event)$closeness   <-   closeness(g.event, weight = NA)
+  V(g.event)$betweenness <- betweenness(g.event, weight = NA)
+  
 return(g.event)
 }
 
 # # Example use:
-# g.orlando.full <- f.network.graph(dt.reddit.orlando)
+# g.orlando.full <- f.network.graph(dt.r.orlando.10d.f)
+
 
 
 #==============================================================================
@@ -47,7 +56,7 @@ f.network.subgraph <- function (g.event) {
 }
 
 # # Example use:
-# g.orlando.subgraph <- f.network.subgraph(g.orlando.full)
+ # g.orlando.subgraph <- f.network.subgraph(g.orlando.full)
 
 
 
@@ -86,8 +95,42 @@ f.top10.vertices <- function(g.event) {
   dt.top10nodes <- dt.vertex.attributes[order(-degree)][1:10]
   return(dt.top10nodes)
 } 
-# 
+
 # #Example use:
 # dt.orlando.top10 <- f.top10.vertices(g.orlando.full)
 
 
+#==============================================================================
+# FUNCTION: get centrality measures as dt
+#==============================================================================
+f.centrality <- function(g.event) {
+  
+  # Get all vertex attributes as a dt 
+  dt.vertex.attributes <-  as.data.table(get.vertex.attribute(g.event))
+  
+  #Choose the centrality measures
+  dt.centrality <- dt.vertex.attributes[c(1:4)]
+  
+  return(dt.centrality)  
+}
+
+#Example:
+# dt.measures <- f.centrality(g.orlando.full)
+
+#==============================================================================
+# FUNCTION: get top subreddits by betweenness as a dt
+#==============================================================================
+
+f.top10.centrality <- function(dt.centrality) {
+  
+  # Get all vertex attributes as a dt 
+  dt.vertex.attributes <-  as.data.table(get.vertex.attribute(g.event))
+  
+  #Choose the centrality measures
+  dt.centrality <- dt.vertex.attributes[c(1:4)]
+  
+  return(dt.centrality)  
+}
+
+#Example:
+# dt.measures <- f.centrality(g.orlando.full)
