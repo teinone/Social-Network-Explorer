@@ -13,9 +13,7 @@ f.network.graph <- function(dt.x) {
                     by = "sourcetarget", 
                     all.x = TRUE)
 
-  # Turn the sentiment values used for weights into absolute values    
-  dt.merge$V1 <- dt.merge[, abs(dt.merge$V1)]
-  
+
   #Crete a directed graph from source-target pair
   g.event <- 
     graph.data.frame(dt.merge[, list(SOURCE_SUBREDDIT,
@@ -23,15 +21,11 @@ f.network.graph <- function(dt.x) {
                      directed = TRUE)
   
   #Define aggregated sentiment as weight
+  # NOTE: includes negatives, can't compute centrality with them
   E(g.event)$weight <- dt.merge[, V1]
   
   # Get the node connections
   V(g.event)$degree <- degree(g.event, mode = "all", loops = TRUE)
-  
-  # #Add centrality measures to the graphs, omit weight because igraph is a mess.
- 
-  V(g.event)$closeness   <-   closeness(g.event, weight = NA)
-  V(g.event)$betweenness <- betweenness(g.event, weight = NA)
   
 return(g.event)
 }
@@ -115,10 +109,41 @@ f.centrality <- function(g.event) {
 # dt.measures <- f.centrality(g.orlando.full)
 
 #==============================================================================
-# FUNCTION: get top subreddits by betweenness as a dt
+# FUNCTION: NEW CENTRALITY measures as dt
 #==============================================================================
+# Dupplicates graph creation with positive weights. Otherwise breaks viz.
 
-f.top10.centrality <- function(dt.centrality) {
+f.centrality <- function(dt.x) {
+  
+  # Calculate sums for sentiment by source|target
+  dt.aggregate <- dt.x[ , base::sum(Compound_Sentiment),
+                        by = sourcetarget]
+  
+  # Merge with the original subset to get aggregate sentiment by pair
+  dt.merge <- merge(dt.x,
+                    dt.aggregate, 
+                    by = "sourcetarget", 
+                    all.x = TRUE)
+  
+  # Turn the sentiment values used for weights into absolute values    
+  dt.merge$V1 <- dt.merge[, abs(dt.merge$V1)]
+  
+  #Crete a directed graph from source-target pair
+  g.event <- 
+    graph.data.frame(dt.merge[, list(SOURCE_SUBREDDIT,
+                                     TARGET_SUBREDDIT)],
+                     directed = TRUE)
+  
+  #Define aggregated sentiment as weight
+  E(g.event)$weight <- dt.merge[, V1]
+  
+  # Get the node connections
+  V(g.event)$degree <- degree(g.event, mode = "all", loops = TRUE)
+  
+  #Add centrality measures to the graphs, omit weight because igraph is a mess.
+  V(g.event)$closeness   <-   closeness(g.event, weight = NA)
+  V(g.event)$betweenness <- betweenness(g.event, weight = NA)
+  
   
   # Get all vertex attributes as a dt 
   dt.vertex.attributes <-  as.data.table(get.vertex.attribute(g.event))
@@ -126,8 +151,31 @@ f.top10.centrality <- function(dt.centrality) {
   #Choose the centrality measures
   dt.centrality <- dt.vertex.attributes[c(1:4)]
   
-  return(dt.centrality)  
+  # Only choose top10 by betweenness
+  dt.top10.centrality <- dt.vertex.attributes[order(-betweenness)][1:10, c(1:4)]
+  
+  return(dt.top10.centrality)  
 }
+
+#Example:
+# dt.measures <- f.centrality(g.orlando.full)
+
+
+#==============================================================================
+# FUNCTION: get top subreddits by betweenness as a dt
+#==============================================================================
+# 
+# f.top10.centrality <- function(dt.centrality) {
+#   
+#   # Get all vertex attributes as a dt 
+#   dt.vertex.attributes <-  as.data.table(get.vertex.attribute(g.event))
+#   
+#   #Choose the centrality measures
+#   # dt.centrality <- dt.vertex.attributes[c(1:4)]
+#   dt.top10.centrality <- dt.vertex.attributes[order(-betweenness)][1:10, c(1:4)]
+#   
+#   return(dt.centrality)  
+# }
 
 #Example:
 # dt.measures <- f.centrality(g.orlando.full)
