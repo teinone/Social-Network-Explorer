@@ -74,7 +74,7 @@ dt.top10.ferguson.centrality <- f.centrality(dt.r.ferguson.15d.f)
 #  Link prediction
 ##=============================================================================  
 
-dt.top10.ferguson.links <- f.link.prediction(g.ferguson.15d.f, ferguson.top.10.15.f)
+dt.top10.ferguson.links <- f.link.prediction(g.ferguson.15d.f, dt.ferguson.top.10.15.f)
 
 ##=============================================================================
 #  Change in sentiment
