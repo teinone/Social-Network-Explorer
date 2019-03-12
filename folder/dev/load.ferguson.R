@@ -69,6 +69,7 @@ dt.ferguson.top.10.15.f <- f.top10.vertices(g.ferguson.15d.f)
 ##=============================================================================  
 
 dt.top10.ferguson.centrality <- f.centrality(dt.r.ferguson.15d.f)
+dt.centrality.ferguson <- f.centrality(dt.r.ferguson.15d.f)
 
 ##=============================================================================
 #  Link prediction
