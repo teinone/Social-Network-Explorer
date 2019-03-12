@@ -82,4 +82,9 @@ dt.top10.obama.links <- f.link.prediction(g.obama.15d.f, dt.obama.top.10.15.f)
 
 dt.obama.change <- f.sentiment.change(dt.r.obama.15d.b, dt.r.obama.15d.a)
 
+##=============================================================================
+# Summary stats
+##=============================================================================  
+
+df.obama.stats <- f.stats(g.obama.subgraph.15d.f)
 
