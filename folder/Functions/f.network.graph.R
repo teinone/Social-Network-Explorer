@@ -92,23 +92,6 @@ f.top10.vertices <- function(g.event) {
 
 
 #==============================================================================
-# FUNCTION: get centrality measures as dt
-#==============================================================================
-f.centrality <- function(g.event) {
-  
-  # Get all vertex attributes as a dt 
-  dt.vertex.attributes <-  as.data.table(get.vertex.attribute(g.event))
-  
-  #Choose the centrality measures
-  dt.centrality <- dt.vertex.attributes[c(1:4)]
-  
-  return(dt.centrality)  
-}
-
-#Example:
-# dt.measures <- f.centrality(g.orlando.full)
-
-#==============================================================================
 # FUNCTION: NEW CENTRALITY measures as dt
 #==============================================================================
 # Dupplicates graph creation with positive weights. Otherwise breaks viz.
