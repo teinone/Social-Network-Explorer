@@ -4,7 +4,7 @@
 source("f.network.graphs.R")
 source("f.sentiment.change.R")
 source("f.link.prediction.R")
-
+source("f.stats.R")
 
 # Fetch network operations
 source("load.trump.R")
