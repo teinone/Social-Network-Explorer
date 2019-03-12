@@ -69,6 +69,7 @@ dt.orlando.top.10.15.f <- f.top10.vertices(g.orlando.15d.f)
 ##=============================================================================  
 
 dt.top10.orlando.centrality <- f.centrality(dt.r.orlando.15d.f)
+dt.centrality.orlando <- f.centrality(dt.r.orlando.15d.f)
 
 ##=============================================================================
 #  Link prediction
