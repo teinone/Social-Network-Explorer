@@ -82,4 +82,10 @@ dt.top10.trump.links <- f.link.prediction(g.trump.15d.f, dt.trump.top.10.15.f)
 
 dt.trump.change <- f.sentiment.change(dt.r.trump.15d.b, dt.r.trump.15d.a)
 
+##=============================================================================
+# Summary stats
+##=============================================================================  
+
+
+df.trump.stats <- f.stats(g.trump.subgraph.15d.f)
 
