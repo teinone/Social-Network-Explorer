@@ -1,0 +1,364 @@
+shinyServer(function(input, output, session) {
+  
+  # Orlando network graph
+  #===============
+  
+  #Render output as per the slider selection - before event date
+  output$orlando_network1 <- renderPlot({
+    if(input$orlando_range == 15) {
+      plot.igraph(g.orlando.subgraph.15d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.orlando.subgraph.15d.b)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$orlando_range == 10) {
+      plot.igraph(g.orlando.subgraph.10d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.orlando.subgraph.10d.b)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$orlando_range == 5) {
+      plot.igraph(g.orlando.subgraph.5d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.orlando.subgraph.5d.b)$weight >= 0.00, "green", "red"))
+    }
+  })
+  
+  #Render plot output as per the slider selection - after event date
+  output$orlando_network2 <- renderPlot({
+    if(input$orlando_range == 15) {
+      plot.igraph(g.orlando.subgraph.15d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.orlando.subgraph.15d.a)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$orlando_range == 10) {
+      
+      plot.igraph(g.orlando.subgraph.10d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.orlando.subgraph.10d.a)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$orlando_range == 5) {
+      plot.igraph(g.orlando.subgraph.5d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.orlando.subgraph.5d.a)$weight >= 0.00, "green", "red"))
+    } # close if else
+  }) # close render plot
+  
+  #Render datatable output if user selects option 1 - before event date
+  output$orlando_table1 <- renderDataTable({
+    if(input$orlando_var == "1") {
+      orlando.top.10.15.b}
+  })
+  
+  #Render datatable output if user selects option 1 - after event date
+  output$orlando_table2 <- renderDataTable({
+    if(input$orlando_var == "1") {
+      orlando.top.10.15.a}
+  })
+  
+  #Render datatable output if user selects option 3 - aggregate
+  output$orlando_user_input <- renderDataTable({
+    if(input$orlando_var == "3") {
+      dt.top10.orlando.links}
+    
+    #Render datatable output if user selects option 2 - aggregate
+    else if(input$orlando_var == "2") {
+      dt.orlando.change}
+    
+    #Render datatable output if user selects option 4 - aggregate
+    else if(input$orlando_var == "4") {
+      dt.orlando.stats}
+    
+  })
+  
+  
+  #================================
+  # Ferguson network graph
+  #===============
+  
+  #Render output as per the slider selection - before event date
+  output$ferguson_network1 <- renderPlot({
+    if(input$ferguson_range == 15) {
+      plot.igraph(g.ferguson.subgraph.15d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.ferguson.subgraph.15d.b)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$ferguson_range == 10) {
+      plot.igraph(g.ferguson.subgraph.10d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.ferguson.subgraph.10d.b)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$ferguson_range == 5) {
+      plot.igraph(g.ferguson.subgraph.5d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.ferguson.subgraph.5d.b)$weight >= 0.00, "green", "red"))
+    }
+  })
+  
+  #Render plot output as per the slider selection - after event date
+  output$ferguson_network2 <- renderPlot({
+    if(input$ferguson_range == 15) {
+      plot.igraph(g.ferguson.subgraph.15d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.ferguson.subgraph.15d.a)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$ferguson_range == 10) {
+      
+      plot.igraph(g.ferguson.subgraph.10d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.ferguson.subgraph.10d.a)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$ferguson_range == 5) {
+      plot.igraph(g.ferguson.subgraph.5d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.ferguson.subgraph.5d.a)$weight >= 0.00, "green", "red"))
+    } # close if else
+  }) # close render plot
+  
+  #Render datatable output if user selects option 1 - before event date
+  output$ferguson_table1 <- renderDataTable({
+    if(input$ferguson_var == "1") {
+      dt.ferguson.top.10.15.b}
+  })
+  
+  #Render datatable output if user selects option 1 - after event date
+  output$ferguson_table2 <- renderDataTable({
+    if(input$ferguson_var == "1") {
+      dt.ferguson.top.10.15.a}
+  })
+  
+  #Render datatable output if user selects option 3 - aggregate
+  output$ferguson_user_input <- renderDataTable({
+    if(input$ferguson_var == "3") {
+      dt.top10.ferguson.links}
+    
+    # #Render datatable output if user selects option 2 - aggregate
+    else if(input$ferguson_var == "2") {
+      dt.ferguson.change}
+    
+    #Render datatable output if user selects option 4 - aggregate
+    else if(input$ferguson_var == "4") {
+      dt.ferguson.stats}
+    
+  })
+  
+  
+  
+  
+  
+  
+  
+  
+  #================================
+  # Obama network graph
+  #===============
+  
+  #Render output as per the slider selection - before event date
+  output$obama_network1 <- renderPlot({
+    if(input$obama_range == 15) {
+      plot.igraph(g.obama.subgraph.15d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.obama.subgraph.15d.b)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$obama_range == 10) {
+      plot.igraph(g.obama.subgraph.10d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.obama.subgraph.10d.b)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$obama_range == 5) {
+      plot.igraph(g.obama.subgraph.5d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.obama.subgraph.5d.b)$weight >= 0.00, "green", "red"))
+   
+       }# end of if else statement
+  })# end of output based on user input
+  
+  #Render plot output as per the slider selection - after event date
+  output$obama_network2 <- renderPlot({
+    if(input$obama_range == 15) {
+      plot.igraph(g.obama.subgraph.15d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.obama.subgraph.15d.a)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$obama_range == 10) {
+      
+      plot.igraph(g.obama.subgraph.10d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.obama.subgraph.10d.a)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$obama_range == 5) {
+      plot.igraph(g.obama.subgraph.5d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.obama.subgraph.5d.a)$weight >= 0.00, "green", "red"))
+    } # close if else
+  }) # close render plot
+  
+  #Render datatable output if user selects option 1 - before event date
+  output$obama_table1 <- renderDataTable({
+    if(input$obama_var == "1") {
+      dt.obama.top.10.15.b}
+  }) # end of output based on user input
+  
+  #Render datatable output if user selects option 1 - after event date
+  output$obama_table2 <- renderDataTable({
+    if(input$obama_var == "1") {
+      dt.obama.top.10.15.a}
+  }) # end of output based on user input
+  
+  #Render datatable output if user selects option 3 - aggregate
+  output$obama_user_input <- renderDataTable({
+    if(input$obama_var == "3") {
+      dt.top10.obama.links}
+    
+    # #Render datatable output if user selects option 2 - aggregate
+    else if(input$obama_var == "2") {
+      dt.obama.change}
+    
+    #Render datatable output if user selects option 4 - aggregate
+    else if(input$obama_var == "4") {
+      dt.obama.stats}
+  }) # end of output based on user input
+  
+  
+  
+  
+  #================================
+  # Trump network graph
+  #===============
+  
+  #Render output as per the slider selection - before event date
+  output$trump_network1 <- renderPlot({
+    if(input$trump_range == 15) {
+      plot.igraph(g.trump.subgraph.15d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.trump.subgraph.15d.b)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$trump_range == 10) {
+      plot.igraph(g.trump.subgraph.10d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.trump.subgraph.10d.b)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$trump_range == 5) {
+      plot.igraph(g.trump.subgraph.5d.b, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.trump.subgraph.5d.b)$weight >= 0.00, "green", "red"))
+    }
+  })
+  
+  #Render plot output as per the slider selection - after event date
+  output$trump_network2 <- renderPlot({
+    if(input$trump_range == 15) {
+      plot.igraph(g.trump.subgraph.15d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.trump.subgraph.15d.a)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$trump_range == 10) {
+      
+      plot.igraph(g.orlando.subgraph.10d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.trump.subgraph.10d.a)$weight >= 0.00, "green", "red"))
+      
+    } else if(input$trump_range == 5) {
+      plot.igraph(g.trump.subgraph.5d.a, layout = layout.fruchterman.reingold, 
+                  vertex.color = "blue", 
+                  vertex.size = 4, 
+                  vertex.label = " ", 
+                  edge.arrow.size = 0.2,
+                  edge.color=ifelse(E(g.trump.subgraph.5d.a)$weight >= 0.00, "green", "red"))
+    } # close if else
+  }) # close render plot
+  
+  #Render datatable output if user selects option 1 - before event date
+  output$trump_table1 <- renderDataTable({
+    if(input$trump_var == "1") {
+      dt.trump.top.10.15.b}
+  }) # end of output based on user input
+  
+  #Render datatable output if user selects option 1 - after event date
+  output$trump_table2 <- renderDataTable({
+    if(input$trump_var == "1") {
+      dt.trump.top.10.15.a}
+  }) # end of output based on user input
+  
+  #Render datatable output if user selects option 3 - aggregate
+  output$trump_user_input <- renderDataTable({
+    if(input$trump_var == "3") {
+      dt.top10.trump.links}
+    
+    #Render datatable output if user selects option 2 - aggregate
+    else if(input$trump_var == "2") {
+      dt.trump.change}
+    
+    #Render datatable output if user selects option 2 - aggregate
+    else if(input$trump_var == "4") {
+      dt.trump.stats}
+  }) # end of output based on user input
+  
+})#end of ShinyServer
