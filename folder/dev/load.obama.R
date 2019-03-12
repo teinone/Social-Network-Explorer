@@ -69,6 +69,7 @@ dt.obama.top.10.15.f <- f.top10.vertices(g.obama.15d.f)
 ##=============================================================================  
 
 dt.top10.obama.centrality <- f.centrality(dt.r.obama.15d.f)
+dt.centrality.obama <- f.centrality(dt.r.obama.15d.f)
 
 ##=============================================================================
 #  Link prediction
