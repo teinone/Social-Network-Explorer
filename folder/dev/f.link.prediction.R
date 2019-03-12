@@ -29,8 +29,8 @@ f.link.prediction <- function(g.reddit, dt.top10){
 }
 
 # Example use:
-dt.orlando.links <- f.link.prediction(g.orlando.subgraph, dt.orlando.top10)
-View(dt.orlando.links)
+#dt.orlando.links <- f.link.prediction(g.orlando.subgraph, dt.orlando.top10)
+#View(dt.orlando.links)
 
 
 
