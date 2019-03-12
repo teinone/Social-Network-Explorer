@@ -74,7 +74,7 @@ dt.top10.orlando.centrality <- f.centrality(dt.r.orlando.15d.f)
 #  Link prediction
 ##=============================================================================  
 
-dt.top10.orlando.links <- f.link.prediction(g.orlando.15d.f, orlando.top.10.15.f)
+dt.top10.orlando.links <- f.link.prediction(g.orlando.15d.f, dt.orlando.top.10.15.f)
 
 ##=============================================================================
 #  Change in sentiment
