@@ -82,4 +82,9 @@ dt.top10.ferguson.links <- f.link.prediction(g.ferguson.15d.f, dt.ferguson.top.1
 
 dt.ferguson.change <- f.sentiment.change(dt.r.ferguson.15d.b, dt.r.ferguson.15d.a)
 
+##=============================================================================
+#  Summary stats
+##============================================================================= 
+
+df.ferguson.stats <- f.stats(g.ferguson.subgraph.15d.f)
 
