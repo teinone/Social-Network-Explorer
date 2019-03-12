@@ -3,9 +3,6 @@
 #==============================================================================
 f.network.graph <- function(dt.x) {
   
-  #TESTING DATA
-  dt.x <- dt.r.ferguson.10d.f
-    
   # Calculate sums for sentiment by source|target
   dt.aggregate <- dt.x[ , base::sum(Compound_Sentiment),
                                     by = sourcetarget]
