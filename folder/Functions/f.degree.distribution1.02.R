@@ -30,9 +30,12 @@ f.degree.distribution <- function(dt.x) {
   # Take degree distribution: non-cumulative, in and out degree
   l.ddistribution <- degree(g.network, mode = "all")
 
-  return(l.ddistribution)
+  # Turn into a dt for viz
+  dt.ddirstribution <- as.data.table(l.ddistribution)
+  
+  return(dt.ddirstribution)
 }
 
 #Example code:
-l.ddistr.ferguson <- f.degree.distribution(dt.reddit.ferguson)
-qplot(l.ddistr.ferguson)
+#l.ddistr.ferguson <- f.degree.distribution(dt.reddit.ferguson)
+#qplot(l.ddistr.ferguson)
